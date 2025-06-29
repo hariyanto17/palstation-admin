@@ -9,6 +9,7 @@ import React from 'react'
 import { SignInFormValues } from './inteface'
 import { validateSignIn } from './validation'
 import { errorMessage } from '@/utils/errorMessage'
+import Link from 'next/link'
 
 const SignIn = () => {
   const router = useRouter()
@@ -62,7 +63,7 @@ const SignIn = () => {
         <div className="flex items-center justify-center">
           <Image src="/images/app-logo.png" alt="logo" width={36} height={36} />
         </div>
-        <h1 className="text-2xl font-bold text-[#1A143C]">Sign In</h1>
+        <h1 className="text-gradient text-2xl font-bold">Sign In</h1>
         <p className="text-xs font-normal text-[#9693A5]">
           Selamat datang kembali
         </p>
@@ -85,6 +86,12 @@ const SignIn = () => {
         />
 
         <Button type="submit">{isSubmitting ? 'loading..' : 'Masuk'}</Button>
+        <div className="flex gap-0.5">
+          <p className="text-white">Saya mau</p>
+          <Link className="font-semibold text-purple-600" href={'/auth/signup'}>
+            Daftar
+          </Link>
+        </div>
       </form>
     </div>
   )

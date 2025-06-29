@@ -1,26 +1,45 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.text-gradient {
+  background-image: linear-gradient(to right, #6a0572, #8e2de2);
+  -webkit-background-clip: text;
+  background-clip: '';
+  -webkit-text-fill-color: transparent;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.card {
+  background-color: #2d3748; /* Darker card color */
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 0.75rem; /* Rounded corners */
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.btn-primary {
+  background-image: linear-gradient(to right, #6a0572, #8e2de2);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: transform 0.2s ease-in-out;
 }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 6px -1px rgba(142, 45, 226, 0.3),
+    0 2px 4px -1px rgba(106, 5, 114, 0.2);
+}
+/* 
+.home-section {
+  background-image: url('https://placehold.co/1920x1080/2f3640/ffffff?text=Rental+PlayStation+Background');
+} */

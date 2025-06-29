@@ -14,7 +14,7 @@ const Input = ({ label, description, error, ...props }: InputProps) => {
     <div className="relative flex flex-col">
       <label
         id={props.id}
-        className="absolute -top-3 left-1 bg-white text-sm font-normal text-[#9693A5]"
+        className="absolute -top-2 left-1 bg-gray-900 text-xs font-normal text-white"
       >
         {label}
       </label>
@@ -22,16 +22,14 @@ const Input = ({ label, description, error, ...props }: InputProps) => {
         className={`rounded-md border p-1 ${focus ? 'border-[#ff53fd]' : 'border-[#261156]'}`}
       >
         <input
-          className="w-full"
+          className="w-full text-white"
           {...props}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
         />
       </div>
       {description && (
-        <p className="bg-white text-xs font-normal text-[#9693A5]">
-          {description}
-        </p>
+        <p className="text-xs font-normal text-[#9693A5]">{description}</p>
       )}
       {error && (
         <p className="bg-white text-xs font-normal text-red-500">{error}</p>

@@ -8,6 +8,7 @@ import { validateSignup } from './validation'
 import { useRouter } from 'next/navigation'
 import { SignUpFormValues } from './interface'
 import { errorMessage } from '@/utils/errorMessage'
+import Link from 'next/link'
 
 const Signup = () => {
   const router = useRouter()
@@ -63,8 +64,8 @@ const Signup = () => {
         <div className="flex items-center justify-center">
           <Image src="/images/app-logo.png" alt="logo" width={36} height={36} />
         </div>
-        <h1 className="text-2xl font-bold text-[#1A143C]">Daftar</h1>
-        <p className="text-sm font-normal text-[#9693A5]">
+        <h1 className="text-gradient text-2xl font-bold">Daftar</h1>
+        <p className="text-xs font-normal text-[#9693A5]">
           selamat datang di rental PS terbaik di bone
         </p>
       </div>
@@ -100,6 +101,12 @@ const Signup = () => {
           error={errors.inviteCode}
         />
         <Button type="submit">{isSubmitting ? 'Mendaftar' : 'Daftar'}</Button>
+        <div className="flex gap-0.5">
+          <p className="text-white">saya mau</p>
+          <Link className="font-semibold text-purple-600" href={'/auth/signin'}>
+            Masuk
+          </Link>
+        </div>
       </form>
     </div>
   )

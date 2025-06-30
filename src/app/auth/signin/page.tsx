@@ -47,7 +47,7 @@ const SignIn = () => {
       console.log('API Response:', response)
       resetForm()
       // Redirect ke halaman login atau dashboard
-      router.push('/')
+      router.push('/admin/home')
     } catch (error: unknown) {
       const message = errorMessage(error)
       setErrors((prev) => ({
@@ -58,41 +58,52 @@ const SignIn = () => {
   }
 
   return (
-    <div className="p-3">
-      <div className="pb-3">
-        <div className="flex items-center justify-center">
-          <Image src="/images/app-logo.png" alt="logo" width={36} height={36} />
+    <div className="">
+      <div className="w-full max-w-md rounded-xl bg-gray-800 p-8 shadow-lg">
+        <div className="pb-6 text-center">
+          <div className="mb-4 flex items-center justify-center">
+            <Image
+              src="/images/app-logo.png"
+              alt="logo"
+              width={36}
+              height={36}
+            />
+          </div>
+          <h1 className="text-gradient mb-2 text-3xl font-bold">Sign In</h1>
+          <p className="text-sm font-normal text-gray-400">
+            Selamat datang kembali
+          </p>
         </div>
-        <h1 className="text-gradient text-2xl font-bold">Sign In</h1>
-        <p className="text-xs font-normal text-[#9693A5]">
-          Selamat datang kembali
-        </p>
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Username"
+            value={formData.username}
+            name="username"
+            onChange={handleChange}
+            error={errors.username}
+            id="username-input"
+          />
+          <Input
+            label="Password"
+            type="password"
+            value={formData.password}
+            name="password"
+            onChange={handleChange}
+            error={errors.password}
+            id="password-input"
+          />
+          <Button type="submit">{isSubmitting ? 'Loading...' : 'Masuk'}</Button>
+          <div className="mt-2 flex justify-center gap-1 text-gray-200">
+            <p className="text-gray-300">Saya mau</p>
+            <Link
+              className="font-semibold text-purple-400 transition duration-200 hover:text-purple-300"
+              href={'/auth/signup'}
+            >
+              Daftar
+            </Link>
+          </div>
+        </form>
       </div>
-      <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          label="Username"
-          value={formData.username}
-          name="username"
-          onChange={handleChange}
-          error={errors.username}
-        />
-        <Input
-          label="Password"
-          type="password"
-          value={formData.password}
-          name="password"
-          onChange={handleChange}
-          error={errors.password}
-        />
-
-        <Button type="submit">{isSubmitting ? 'loading..' : 'Masuk'}</Button>
-        <div className="flex gap-0.5">
-          <p className="text-white">Saya mau</p>
-          <Link className="font-semibold text-purple-600" href={'/auth/signup'}>
-            Daftar
-          </Link>
-        </div>
-      </form>
     </div>
   )
 }

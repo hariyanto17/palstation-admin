@@ -6,7 +6,7 @@ const Button = ({
 }: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
-      className="rounded-md border border-none bg-purple-600 p-1 text-white hover:cursor-pointer hover:bg-purple-500"
+      className="btn-primary w-full rounded-lg text-lg font-semibold transition-transform duration-200"
       {...props}
     >
       {children}

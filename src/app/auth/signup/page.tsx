@@ -59,55 +59,65 @@ const Signup = () => {
   }
 
   return (
-    <div className="flex flex-col gap-5 px-3 py-7">
-      <div className="">
-        <div className="flex items-center justify-center">
-          <Image src="/images/app-logo.png" alt="logo" width={36} height={36} />
+    <div className="">
+      <div className="w-full max-w-md rounded-xl bg-gray-800 p-8 shadow-lg">
+        <div className="pb-6 text-center">
+          <div className="mb-4 flex items-center justify-center">
+            <Image
+              src="/images/app-logo.png"
+              alt="logo"
+              width={36}
+              height={36}
+            />
+          </div>
+          <h1 className="text-gradient mb-2 text-3xl font-bold">Sign In</h1>
+          <p className="text-sm font-normal text-gray-400">
+            selamat datang di rental PS terbaik di bone
+          </p>
         </div>
-        <h1 className="text-gradient text-2xl font-bold">Daftar</h1>
-        <p className="text-xs font-normal text-[#9693A5]">
-          selamat datang di rental PS terbaik di bone
-        </p>
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Nama"
+            value={formData.name}
+            name="name"
+            onChange={handleChange}
+            error={errors.name}
+          />
+          <Input
+            label="Username"
+            value={formData.username}
+            name="username"
+            onChange={handleChange}
+            error={errors.username}
+          />
+          <Input
+            label="Password"
+            type="password"
+            value={formData.password}
+            name="password"
+            onChange={handleChange}
+            error={errors.password}
+          />
+          <Input
+            label="Kode undangan"
+            description="kosongkan jika tidak ada"
+            value={formData.inviteCode}
+            name="inviteCode"
+            onChange={handleChange}
+            error={errors.inviteCode}
+          />
+          <Button type="submit">{isSubmitting ? 'Mendaftar' : 'Daftar'}</Button>
+          <div className="mt-2 flex justify-center gap-1 text-gray-200">
+            <p className="text-white">saya mau</p>
+            <Link
+              className="font-semibold text-purple-600"
+              href={'/auth/signin'}
+            >
+              Masuk
+            </Link>
+          </div>
+        </form>
       </div>
-      <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          label="Nama"
-          value={formData.name}
-          name="name"
-          onChange={handleChange}
-          error={errors.name}
-        />
-        <Input
-          label="Username"
-          value={formData.username}
-          name="username"
-          onChange={handleChange}
-          error={errors.username}
-        />
-        <Input
-          label="Password"
-          type="password"
-          value={formData.password}
-          name="password"
-          onChange={handleChange}
-          error={errors.password}
-        />
-        <Input
-          label="Kode undangan"
-          description="kosongkan jika tidak ada"
-          value={formData.inviteCode}
-          name="inviteCode"
-          onChange={handleChange}
-          error={errors.inviteCode}
-        />
-        <Button type="submit">{isSubmitting ? 'Mendaftar' : 'Daftar'}</Button>
-        <div className="flex gap-0.5">
-          <p className="text-white">saya mau</p>
-          <Link className="font-semibold text-purple-600" href={'/auth/signin'}>
-            Masuk
-          </Link>
-        </div>
-      </form>
     </div>
   )
 }

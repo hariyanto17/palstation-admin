@@ -1,6 +1,6 @@
 export const errorMessage = (error: unknown) => {
   if (typeof error === 'string') {
-    return
+    return error
   }
   if (error instanceof Error) {
     return error.message

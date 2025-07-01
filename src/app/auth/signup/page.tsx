@@ -9,9 +9,13 @@ import { useRouter } from 'next/navigation'
 import { SignUpFormValues } from './interface'
 import { errorMessage } from '@/utils/errorMessage'
 import Link from 'next/link'
+import { useCallback } from 'react'
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth'
+import { firebaseAuth } from '@/config/firebase'
 
 const Signup = () => {
   const router = useRouter()
+  const [signInWithGoogle] = useSignInWithGoogle(firebaseAuth)
 
   const {
     formData,
@@ -58,6 +62,18 @@ const Signup = () => {
     }
   }
 
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      const googleCredential = await signInWithGoogle()
+      if (googleCredential) {
+        const { user } = googleCredential
+        console.log('googleCredential', user)
+      }
+    } catch (e) {
+      console.error('Error during Google sign in:', e)
+    }
+  }, [signInWithGoogle])
+
   return (
     <div className="">
       <div className="w-full max-w-md rounded-xl bg-gray-800 p-8 shadow-lg">
@@ -70,12 +86,15 @@ const Signup = () => {
               height={36}
             />
           </div>
-          <h1 className="text-gradient mb-2 text-3xl font-bold">Sign In</h1>
+          <h1 className="text-gradient mb-2 text-3xl font-bold">Sign Up</h1>
           <p className="text-sm font-normal text-gray-400">
             selamat datang di rental PS terbaik di bone
           </p>
         </div>
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="mb-5 flex flex-col gap-5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Input
             label="Nama"
             value={formData.name}
@@ -107,16 +126,14 @@ const Signup = () => {
             error={errors.inviteCode}
           />
           <Button type="submit">{isSubmitting ? 'Mendaftar' : 'Daftar'}</Button>
-          <div className="mt-2 flex justify-center gap-1 text-gray-200">
-            <p className="text-white">saya mau</p>
-            <Link
-              className="font-semibold text-purple-600"
-              href={'/auth/signin'}
-            >
-              Masuk
-            </Link>
-          </div>
         </form>
+        <Button onClick={handleGoogleSignIn}>Sign up with google</Button>
+        <div className="mt-2 flex justify-center gap-1 text-gray-200">
+          <p className="text-white">saya mau</p>
+          <Link className="font-semibold text-purple-600" href={'/auth/signin'}>
+            Masuk
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -3,7 +3,6 @@
 import Button from '@/components/button'
 import { useState, useCallback } from 'react'
 
-// Interface for User Data - NEW
 interface User {
   id: string
   name: string

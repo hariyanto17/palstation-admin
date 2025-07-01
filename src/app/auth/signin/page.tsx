@@ -5,14 +5,17 @@ import Input from '@/components/input'
 import { useForm } from '@/hooks/useForm'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { SignInFormValues } from './inteface'
 import { validateSignIn } from './validation'
 import { errorMessage } from '@/utils/errorMessage'
 import Link from 'next/link'
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth'
+import { firebaseAuth } from '@/config/firebase'
 
 const SignIn = () => {
   const router = useRouter()
+  const [signInWithGoogle] = useSignInWithGoogle(firebaseAuth)
 
   const {
     formData,
@@ -24,7 +27,7 @@ const SignIn = () => {
     resetForm,
   } = useForm<SignInFormValues>(
     {
-      username: '',
+      email: '',
       password: '',
     },
     validateSignIn
@@ -57,6 +60,18 @@ const SignIn = () => {
     }
   }
 
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      const googleCredential = await signInWithGoogle()
+      if (googleCredential) {
+        const { user } = googleCredential
+        console.log('googleCredential', user)
+      }
+    } catch (e) {
+      console.error('Error during Google sign in:', e)
+    }
+  }, [signInWithGoogle])
+
   return (
     <div className="">
       <div className="w-full max-w-md rounded-xl bg-gray-800 p-8 shadow-lg">
@@ -74,14 +89,17 @@ const SignIn = () => {
             Selamat datang kembali
           </p>
         </div>
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="mb-5 flex flex-col gap-5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Input
-            label="Username"
-            value={formData.username}
-            name="username"
+            label="Email"
+            value={formData.email}
+            name="email"
             onChange={handleChange}
-            error={errors.username}
-            id="username-input"
+            error={errors.email}
+            id="email-input"
           />
           <Input
             label="Password"
@@ -93,16 +111,17 @@ const SignIn = () => {
             id="password-input"
           />
           <Button type="submit">{isSubmitting ? 'Loading...' : 'Masuk'}</Button>
-          <div className="mt-2 flex justify-center gap-1 text-gray-200">
-            <p className="text-gray-300">Saya mau</p>
-            <Link
-              className="font-semibold text-purple-400 transition duration-200 hover:text-purple-300"
-              href={'/auth/signup'}
-            >
-              Daftar
-            </Link>
-          </div>
         </form>
+        <Button onClick={handleGoogleSignIn}>Sign in with google</Button>
+        <div className="mt-2 flex justify-center gap-1 text-gray-200">
+          <p className="text-gray-300">Saya mau</p>
+          <Link
+            className="font-semibold text-purple-400 transition duration-200 hover:text-purple-300"
+            href={'/auth/signup'}
+          >
+            Daftar
+          </Link>
+        </div>
       </div>
     </div>
   )

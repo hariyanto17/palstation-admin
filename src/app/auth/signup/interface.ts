@@ -1,6 +1,6 @@
 export interface SignUpFormValues {
   name: string
-  username: string
+  email: string
   password: string
   inviteCode?: string
 }

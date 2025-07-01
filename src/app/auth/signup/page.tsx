@@ -24,7 +24,7 @@ const Signup = () => {
   } = useForm<SignUpFormValues>(
     {
       name: '',
-      username: '',
+      email: '',
       password: '',
       inviteCode: '',
     },
@@ -85,10 +85,10 @@ const Signup = () => {
           />
           <Input
             label="Username"
-            value={formData.username}
+            value={formData.email}
             name="username"
             onChange={handleChange}
-            error={errors.username}
+            error={errors.email}
           />
           <Input
             label="Password"

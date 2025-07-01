@@ -1,4 +1,4 @@
 export interface SignInFormValues {
-  username: string
+  email: string
   password: string
 }
